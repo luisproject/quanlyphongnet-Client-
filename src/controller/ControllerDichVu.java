@@ -2,12 +2,18 @@ package controller;
 
 import java.awt.Dimension;
 import java.awt.Font;
+import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 import java.util.ArrayList;
 
+import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JComponent;
 import javax.swing.JOptionPane;
+import javax.swing.JSpinner;
 import javax.swing.JTable;
 import javax.swing.event.TableModelListener;
 import javax.swing.table.AbstractTableModel;
@@ -17,6 +23,7 @@ import model.bean.DichVu;
 import model.bo.DichVuBO;
 import utils.JTableButtonMouseListener;
 import utils.JTableButtonRenderer;
+import utils.JTableSpinnerRenderer;
 import utils.SpinnerEditor;
 
 @SuppressWarnings("all")
@@ -29,9 +36,7 @@ public class ControllerDichVu extends AbstractTableModel{
         "<html><center><p style='color:#00434a;font-weight:bold;'>Đơn Giá</p></center></html>",
         "<html><center><p style='color:#00434a;font-weight:bold;'>Đơn Vị</p></center></html>",
         "<html><center><p style='color:#00434a;font-weight:bold;'>Số Lượng</p></center></html>",
-        "<html><center><p style='color:#00434a;font-weight:bold;'>Button 1</p></center></html>",
-        "<html><center><p style='color:#00434a;font-weight:bold;'>Button 2</p></center></html>"
-            
+        "<html><center><p style='color:#00434a;font-weight:bold;'>Lựa Chọn</p></center></html>",
     };
     private ArrayList<DichVu> alItem = new ArrayList<DichVu>();
     
@@ -77,24 +82,13 @@ public class ControllerDichVu extends AbstractTableModel{
                 object = Item.getDonVi();
                 break;
             case 4:
-                object = Item.getDonVi();
-                break;
+                JSpinner spinner = new JSpinner();
+                spinner.setPreferredSize(new Dimension(29, 24));
+                return spinner;
             case 5: 
-            	JButton button1 = new JButton("+");
-	            button1.addActionListener(new ActionListener() {
-	                public void actionPerformed(ActionEvent arg0) {
-	                	
-	                }
-	            });
-	            return button1;
-            case 6: 
-            	JButton button2 = new JButton("-");
-	            button2.addActionListener(new ActionListener() {
-	                public void actionPerformed(ActionEvent arg0) {
-	                    
-	                }
-	            });
-	            return button2;
+            	JButton button = new JButton();
+            	button.setIcon(new ImageIcon(getClass().getResource("/images/tick.png"))); 
+	            return button;
         }
         return object;
 	}
@@ -106,10 +100,8 @@ public class ControllerDichVu extends AbstractTableModel{
         }else if(columnIndex == 2){
             return Integer.class;
         }else if(columnIndex == 4){
-        	return Integer.class;
+        	return JSpinner.class;
         }else if(columnIndex == 5){
-        	return JButton.class;
-        }else if(columnIndex == 6){
         	return JButton.class;
         }
 		
@@ -119,9 +111,11 @@ public class ControllerDichVu extends AbstractTableModel{
         
         this.table.setModel(this);
         this.table.setAutoCreateRowSorter(true);
-        table.setFillsViewportHeight(true); 
+        table.setFillsViewportHeight(true);     
 
         TableCellRenderer buttonRenderer = new JTableButtonRenderer();
+        TableCellRenderer spinnerRenderer = new JTableSpinnerRenderer();
+        
         this.table.addMouseListener(new JTableButtonMouseListener(this.table));
         
         table.getTableHeader().setPreferredSize(new Dimension(0, 30));
@@ -133,12 +127,11 @@ public class ControllerDichVu extends AbstractTableModel{
         table.getColumnModel().getColumn(1).setPreferredWidth(100);
         table.getColumnModel().getColumn(2).setPreferredWidth(100);
         table.getColumnModel().getColumn(3).setPreferredWidth(100);
+        
         table.getColumnModel().getColumn(4).setPreferredWidth(100);
+        table.getColumnModel().getColumn(4).setCellRenderer(spinnerRenderer);
         
-        table.getColumnModel().getColumn(5).setPreferredWidth(50);
+        table.getColumnModel().getColumn(5).setPreferredWidth(30);
         table.getColumnModel().getColumn(5).setCellRenderer(buttonRenderer);
-        
-        table.getColumnModel().getColumn(6).setPreferredWidth(50);
-        table.getColumnModel().getColumn(6).setCellRenderer(buttonRenderer);
     }
 }

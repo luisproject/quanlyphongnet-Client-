@@ -2,6 +2,7 @@ package view;
 
 import java.util.ArrayList;
 
+import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -32,6 +33,8 @@ public class FrService extends JFrame{
 		    	setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 		    }
 		});
+		ImageIcon image = new ImageIcon(this.getClass().getResource("/images/iconService.png"));
+        this.setIconImage(image.getImage());
 	}
 	private void initComponents() {
 		// TODO Auto-generated method stub
