@@ -1,12 +1,18 @@
 package view;
 
+import java.awt.Dimension;
+import java.awt.Toolkit;
+import java.awt.event.ActionEvent;
+
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JSpinner;
 import javax.swing.JTextField;
+import javax.swing.WindowConstants;
 
 import utils.Panel;
 
@@ -160,6 +166,11 @@ public class FrMessage extends JFrame{
         jButton3.setBackground(new java.awt.Color(242, 242, 242));
         jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/iservice.png"))); // NOI18N
         jButton3.setText("Dịch vụ");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
         jPanel3.add(jButton3);
 
         jButton2.setBackground(new java.awt.Color(242, 242, 242));
@@ -247,5 +258,14 @@ public class FrMessage extends JFrame{
         );
 
         pack();
+	}
+
+	protected void jButton3ActionPerformed(ActionEvent evt) {
+		// TODO Auto-generated method stub
+		FrService fr = new FrService();
+		fr.setVisible(true);
+		
+		Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
+		fr.setLocation(dim.width/2-fr.getSize().width/2, dim.height/2-fr.getSize().height/2);
 	}
 }

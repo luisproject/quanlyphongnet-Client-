@@ -38,10 +38,10 @@ public class FrInitial extends JFrame{
         pack();
 	}
 	protected void jLabel1MousePressed(MouseEvent evt) {
-		FrLogin frLogin = new FrLogin();
-		frLogin.setVisible(true);
-		// this.setLocationRelativeTopRight();
-        // this.dispose();
+//		FrLogin frLogin = new FrLogin();
+//		frLogin.setVisible(true);
+		this.setLocationRelativeTopRight();
+        this.dispose();
 	}
 	private void setLocationRelativeTopRight() {
 		FrMessage fr = new FrMessage();

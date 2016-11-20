@@ -6,6 +6,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.WindowConstants;
 
 import controller.ControllerDichVu;
 import model.bean.DichVu;
@@ -25,24 +26,28 @@ public class FrService extends JFrame{
 		initComponents();
 		controller = new ControllerDichVu(tbMain1);
 		controller.loadTable();
+		this.addWindowListener(new java.awt.event.WindowAdapter() {
+		    @Override
+		    public void windowClosing(java.awt.event.WindowEvent windowEvent) {
+		    	setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+		    }
+		});
 	}
 	private void initComponents() {
 		// TODO Auto-generated method stub
-		Content = new JPanel();
-        Available = new JPanel();
-        jScrollPane1 = new JScrollPane();
-        tbMain1 = new JTable();
-        Using = new JPanel();
-        jScrollPane2 = new JScrollPane();
-        tbMain2 = new JTable();
+		this.setResizable(false);
+		Content = new javax.swing.JPanel();
+        Available = new javax.swing.JPanel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tbMain1 = new javax.swing.JTable();
+        Using = new javax.swing.JPanel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        tbMain2 = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         Content.setBackground(new java.awt.Color(242, 242, 242));
         Content.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Danh sách dịch vụ ", javax.swing.border.TitledBorder.LEFT, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Tahoma", 1, 12), new java.awt.Color(0, 153, 255))); // NOI18N
-        Content.setLayout(new java.awt.BorderLayout());
-
-        Available.setLayout(new java.awt.BorderLayout());
 
         jScrollPane1.setBorder(null);
 
@@ -59,11 +64,16 @@ public class FrService extends JFrame{
         ));
         jScrollPane1.setViewportView(tbMain1);
 
-        Available.add(jScrollPane1, java.awt.BorderLayout.CENTER);
-
-        Content.add(Available, java.awt.BorderLayout.PAGE_START);
-
-        Using.setLayout(new java.awt.BorderLayout());
+        javax.swing.GroupLayout AvailableLayout = new javax.swing.GroupLayout(Available);
+        Available.setLayout(AvailableLayout);
+        AvailableLayout.setHorizontalGroup(
+            AvailableLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 788, javax.swing.GroupLayout.PREFERRED_SIZE)
+        );
+        AvailableLayout.setVerticalGroup(
+            AvailableLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+        );
 
         jScrollPane2.setBorder(null);
 
@@ -80,43 +90,34 @@ public class FrService extends JFrame{
         ));
         jScrollPane2.setViewportView(tbMain2);
 
-        Using.add(jScrollPane2, java.awt.BorderLayout.CENTER);
+        javax.swing.GroupLayout UsingLayout = new javax.swing.GroupLayout(Using);
+        Using.setLayout(UsingLayout);
+        UsingLayout.setHorizontalGroup(
+            UsingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 788, javax.swing.GroupLayout.PREFERRED_SIZE)
+        );
+        UsingLayout.setVerticalGroup(
+            UsingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE)
+        );
 
-        Content.add(Using, java.awt.BorderLayout.CENTER);
+        javax.swing.GroupLayout ContentLayout = new javax.swing.GroupLayout(Content);
+        Content.setLayout(ContentLayout);
+        ContentLayout.setHorizontalGroup(
+            ContentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(Available, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(Using, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+        );
+        ContentLayout.setVerticalGroup(
+            ContentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(ContentLayout.createSequentialGroup()
+                .addComponent(Available, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, 0)
+                .addComponent(Using, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
 
         getContentPane().add(Content, java.awt.BorderLayout.CENTER);
 
         pack();
 	}
-	public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(FrService.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(FrService.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(FrService.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(FrService.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new FrService().setVisible(true);
-            }
-        });
-    }
 }
