@@ -13,12 +13,18 @@ import javax.swing.JOptionPane;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 
+import model.bean.May;
+import model.bo.MayBO;
+import utils.ListAddress;
+
 @SuppressWarnings("all")
 public class FrInitial extends JFrame{
 	private JLabel jLabel1;
+	private MayBO objectBO;
 	public FrInitial(){
 		this.setUndecorated(true);
 		initComponents();
+		objectBO = new MayBO();
 	}
 	private void initComponents() {
 		// TODO Auto-generated method stub
@@ -38,12 +44,20 @@ public class FrInitial extends JFrame{
         pack();
 	}
 	protected void jLabel1MousePressed(MouseEvent evt) {
-//		FrLogin frLogin = new FrLogin();
-//		frLogin.setVisible(true);
-		this.setLocationRelativeTopRight();
-        this.dispose();
+		May objMay = objectBO.getItemAddress(ListAddress.getMacAddress());
+		if(objMay!=null){
+			if(objMay.getTrangThai()){
+		        openFrMessage();
+			}else{
+				FrLogin frLogin = new FrLogin(this);
+				frLogin.setVisible(true);
+			}
+		}else{
+			JOptionPane.showConfirmDialog(new FrInitial(),"<html><p style=\"color:red; font-weight:bold;\">Bạn chưa cấu hình địa chỉ mac cho máy!</p></html>","Thông báo",JOptionPane.WARNING_MESSAGE);
+		}
 	}
-	private void setLocationRelativeTopRight() {
+	private void openFrMessage() {
+		// TODO Auto-generated method stub
 		FrMessage fr = new FrMessage();
 		GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
         GraphicsDevice defaultScreen = ge.getDefaultScreenDevice();
@@ -52,6 +66,7 @@ public class FrInitial extends JFrame{
         int y = 0;
         fr.setLocation(x, y);
         fr.setVisible(true);
+        this.dispose();
 	}
 	public static void main(String args[]) {
         try {

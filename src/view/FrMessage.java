@@ -3,6 +3,7 @@ package view;
 import java.awt.Dimension;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
+import java.awt.event.MouseEvent;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -117,6 +118,11 @@ public class FrMessage extends JFrame{
         jLabel10.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel10.setForeground(new java.awt.Color(255, 255, 255));
         jLabel10.setText("X");
+        jLabel10.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                jLabel10MousePressed(evt);
+            }
+        });
         jPanel2.add(jLabel10);
 
         Top.add(jPanel2);
@@ -140,13 +146,25 @@ public class FrMessage extends JFrame{
         jLabel5.setForeground(new java.awt.Color(51, 102, 255));
         jLabel5.setText("Thời gian còn lại:");
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Tiếng Việt", "Tiếng Anh" }));
         jComboBox1.setPreferredSize(new java.awt.Dimension(56, 24));
 
+        jSpinner1.setModel(new javax.swing.SpinnerDateModel());
+        jSpinner1.setDoubleBuffered(true);
+        jSpinner1.setEditor(new javax.swing.JSpinner.DateEditor(jSpinner1, "HH:mm:ss"));
+        jSpinner1.setEnabled(false);
         jSpinner1.setPreferredSize(new java.awt.Dimension(29, 24));
 
+        jSpinner2.setModel(new javax.swing.SpinnerDateModel());
+        jSpinner2.setDoubleBuffered(true);
+        jSpinner2.setEditor(new javax.swing.JSpinner.DateEditor(jSpinner2, "HH:mm:ss"));
+        jSpinner2.setEnabled(false);
         jSpinner2.setPreferredSize(new java.awt.Dimension(29, 24));
 
+        jSpinner3.setModel(new javax.swing.SpinnerDateModel());
+        jSpinner3.setDoubleBuffered(true);
+        jSpinner3.setEditor(new javax.swing.JSpinner.DateEditor(jSpinner3, "HH:mm:ss"));
+        jSpinner3.setEnabled(false);
         jSpinner3.setPreferredSize(new java.awt.Dimension(29, 24));
 
         jLabel7.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
@@ -258,6 +276,11 @@ public class FrMessage extends JFrame{
         );
 
         pack();
+	}
+
+	protected void jLabel10MousePressed(MouseEvent evt) {
+		// TODO Auto-generated method stub
+		setState(FrMessage.ICONIFIED);
 	}
 
 	protected void jButton3ActionPerformed(ActionEvent evt) {

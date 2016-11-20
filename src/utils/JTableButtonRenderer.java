@@ -2,11 +2,11 @@ package utils;
 
 import java.awt.Component;
 
-import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JTable;
 import javax.swing.table.TableCellRenderer;
 
+@SuppressWarnings("all")
 public class JTableButtonRenderer implements TableCellRenderer{
 
 	@Override
