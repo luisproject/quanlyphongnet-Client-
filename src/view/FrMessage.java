@@ -4,6 +4,10 @@ import java.awt.Dimension;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.MouseEvent;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -15,6 +19,9 @@ import javax.swing.JSpinner;
 import javax.swing.JTextField;
 import javax.swing.WindowConstants;
 
+import model.bo.MayBO;
+import model.bo.PhienNguoiDungBO;
+import utils.LibraryString;
 import utils.Panel;
 
 @SuppressWarnings("all")
@@ -51,9 +58,45 @@ public class FrMessage extends JFrame{
 	
 	private JPanel Last;
 	private JLabel jLabel6;
+	private PhienNguoiDungBO phienNguoiDungBO;
+	private int idm;
 	
-	public FrMessage() {
+	public FrMessage(int idm) {
 		initComponents();
+		phienNguoiDungBO = new PhienNguoiDungBO();
+		this.idm = idm;
+		initTime();
+	}
+
+	private void initTime() {
+		// TODO Auto-generated method stub
+		jSpinner1.setValue(LibraryString.convertToTime(86399));
+		
+		Thread clock = new Thread(){
+			@Override
+			public void run(){
+				while(true){
+					Date thoiGianStart = new Date(phienNguoiDungBO.getItemCom(idm).getThoiGianBatDau().getTime());
+					Date thoiGianPlay = LibraryString.convertToTime(Math.abs(new Date().getTime() - thoiGianStart.getTime())/1000);
+					jSpinner2.setValue(thoiGianPlay);
+					jSpinner3.setValue(LibraryString.convertToTime(86399 - thoiGianPlay.getTime()/1000));
+					
+					String money = LibraryString.operMoney(thoiGianPlay, new MayBO().getItem(idm).getDonGia())+"";
+					if(Integer.parseInt(money) > 1000){
+						jTextField1.setText(LibraryString.changeCurrencyVND(money)+" VND");
+					}else{
+						jTextField1.setText("1.000 VND");
+					}
+					
+					try {
+						sleep(1000);
+					} catch (InterruptedException e) {
+						System.out.print(e.getMessage());
+					}
+				}
+			}
+		};
+		clock.start();
 	}
 
 	private void initComponents() {

@@ -47,7 +47,7 @@ public class FrInitial extends JFrame{
 		May objMay = objectBO.getItemAddress(ListAddress.getMacAddress());
 		if(objMay!=null){
 			if(objMay.getTrangThai()){
-		        openFrMessage();
+		        openFrMessage(objMay.getIdm());
 			}else{
 				FrLogin frLogin = new FrLogin(this);
 				frLogin.setVisible(true);
@@ -56,9 +56,9 @@ public class FrInitial extends JFrame{
 			JOptionPane.showConfirmDialog(new FrInitial(),"<html><p style=\"color:red; font-weight:bold;\">Bạn chưa cấu hình địa chỉ mac cho máy!</p></html>","Thông báo",JOptionPane.WARNING_MESSAGE);
 		}
 	}
-	private void openFrMessage() {
+	private void openFrMessage(int idm) {
 		// TODO Auto-generated method stub
-		FrMessage fr = new FrMessage();
+		FrMessage fr = new FrMessage(idm);
 		GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
         GraphicsDevice defaultScreen = ge.getDefaultScreenDevice();
         Rectangle rect = defaultScreen.getDefaultConfiguration().getBounds();

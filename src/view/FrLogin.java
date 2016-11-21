@@ -330,21 +330,21 @@ public class FrLogin extends JFrame{
             }
         }
         frInitial.setVisible(false);
-        openFrMessage();
+        // openFrMessage();
 	}
 
-	private void openFrMessage() {
-		// TODO Auto-generated method stub
-		FrMessage fr = new FrMessage();
-		GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
-        GraphicsDevice defaultScreen = ge.getDefaultScreenDevice();
-        Rectangle rect = defaultScreen.getDefaultConfiguration().getBounds();
-        int x = (int) rect.getMaxX() - fr.getWidth();
-        int y = 0;
-        fr.setLocation(x, y);
-        fr.setVisible(true);
-        this.dispose();
-	}
+//	private void openFrMessage() {
+//		// TODO Auto-generated method stub
+//		FrMessage fr = new FrMessage();
+//		GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
+//        GraphicsDevice defaultScreen = ge.getDefaultScreenDevice();
+//        Rectangle rect = defaultScreen.getDefaultConfiguration().getBounds();
+//        int x = (int) rect.getMaxX() - fr.getWidth();
+//        int y = 0;
+//        fr.setLocation(x, y);
+//        fr.setVisible(true);
+//        this.dispose();
+//	}
 
 	protected void btnCancelActionPerformed(ActionEvent evt) {
 		// TODO Auto-generated method stub
