@@ -22,13 +22,14 @@ import javax.swing.JTextField;
 import javax.swing.WindowConstants;
 import javax.swing.border.TitledBorder;
 
+import model.bean.Member;
 import model.bo.MayBO;
 import model.bo.PhienNguoiDungBO;
 import utils.LibraryString;
 import utils.Panel;
 
 @SuppressWarnings("all")
-public class FrMessage extends JFrame{
+public class FrMessage2 extends JFrame{
 	/**
 	 * Create the panel.
 	 */
@@ -61,48 +62,42 @@ public class FrMessage extends JFrame{
 	
 	private JPanel Last;
 	private JLabel jLabel6;
-	private PhienNguoiDungBO phienNguoiDungBO;
 	private MayBO mayBO;
+	private Member member;
 	private int idm;
 	
-	public FrMessage(int idm) {
+	public FrMessage2(int idm,Member member) {
 		initComponents();
-		phienNguoiDungBO = new PhienNguoiDungBO();
 		mayBO = new MayBO();
 		this.idm = idm;
+		this.member = member;
 		initTime();
 		Center.setBorder(BorderFactory.createTitledBorder(BorderFactory.createMatteBorder(0, 0, 0, 0, new Color(242, 242, 242)), "Thông tin tính tiền "+mayBO.getItem(idm).getTenMay(),TitledBorder.LEFT, TitledBorder.TOP, new java.awt.Font("Tahoma", 1, 12), new Color(51, 153, 255))); // NOI18N
 	}
 
 	private void initTime() {
 		// TODO Auto-generated method stub
-		jSpinner1.setValue(LibraryString.convertToTime(86399));
+		switch(Integer.parseInt(member.getPayment())){
+			case 5000:
+				jSpinner1.setValue(LibraryString.convertToTime(7200));
+				break;
+			case 10000:
+				jSpinner1.setValue(LibraryString.convertToTime(14400));
+				break;
+		}
 		
-		Thread clock = new Thread(){
-			@Override
-			public void run(){
-				while(true){
-					Date thoiGianStart = new Date(phienNguoiDungBO.getItemCom(idm).getThoiGianBatDau().getTime());
-					Date thoiGianPlay = LibraryString.convertToTime(Math.abs(new Date().getTime() - thoiGianStart.getTime())/1000);
-					jSpinner2.setValue(thoiGianPlay);
-					jSpinner3.setValue(LibraryString.convertToTime(86399 - thoiGianPlay.getTime()/1000));
-					
-					String money = LibraryString.operMoney(thoiGianPlay, new MayBO().getItem(idm).getDonGia())+"";
-					if(Integer.parseInt(money) > 1000){
-						jTextField1.setText(LibraryString.changeCurrencyVND(money)+" VND");
-					}else{
-						jTextField1.setText("1.000 VND");
-					}
-					
-					try {
-						sleep(1000);
-					} catch (InterruptedException e) {
-						System.out.print(e.getMessage());
-					}
-				}
-			}
-		};
-		clock.start();
+//		Date thoiGianStart = new Date(member.getTotalTime().getTime());
+//		Date thoiGianPlay = LibraryString.convertToTime(Math.abs(new Date().getTime() - thoiGianStart.getTime())/1000);
+//		jSpinner2.setValue(thoiGianPlay);
+//		jSpinner3.setValue(LibraryString.convertToTime(86399 - thoiGianPlay.getTime()/1000));
+//		
+//		String money = LibraryString.operMoney(thoiGianPlay, new MayBO().getItem(idm).getDonGia())+"";
+//		if(Integer.parseInt(money) > 1000){
+//			jTextField1.setText(LibraryString.changeCurrencyVND(money)+" VND");
+//		}else{
+//			jTextField1.setText("1.000 VND");
+//		}
+		
 	}
 
 	private void initComponents() {
@@ -329,7 +324,7 @@ public class FrMessage extends JFrame{
 
 	protected void jLabel10MousePressed(MouseEvent evt) {
 		// TODO Auto-generated method stub
-		setState(FrMessage.ICONIFIED);
+		setState(FrMessage2.ICONIFIED);
 	}
 
 	protected void jButton3ActionPerformed(ActionEvent evt) {

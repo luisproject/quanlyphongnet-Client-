@@ -49,7 +49,7 @@ public class FrInitial extends JFrame{
 			if(objMay.getTrangThai()){
 		        openFrMessage(objMay.getIdm());
 			}else{
-				FrLogin frLogin = new FrLogin(this);
+				FrLogin frLogin = new FrLogin(this,objMay.getIdm());
 				frLogin.setVisible(true);
 			}
 		}else{

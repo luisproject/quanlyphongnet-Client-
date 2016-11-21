@@ -1,60 +1,68 @@
 package model.bean;
 
+import java.sql.Timestamp;
+
 @SuppressWarnings("all")
 public class Member {
-	private String id;
-	private String tenDangNhap;
-	private String matKhau;
-	private String thanhToan;
-	private String tongThoiGian;
-	private String thoiGianSuDung;
-	public Member(){
+	private int id;
+	private String username;
+	private String password;
+	private String payment;
+	private Timestamp totalTime;
+	private Timestamp playTime;
+	public Member() {
 		super();
 	}
-	public Member(String id, String tenDangNhap, String matKhau, String thanhToan, String tongThoiGian,
-			String thoiGianSuDung) {
+	
+	public Member(String username, String password) {
+		super();
+		this.username = username;
+		this.password = password;
+	}
+
+	public Member(int id, String username, String password, String payment, Timestamp totalTime, Timestamp playTime) {
 		super();
 		this.id = id;
-		this.tenDangNhap = tenDangNhap;
-		this.matKhau = matKhau;
-		this.thanhToan = thanhToan;
-		this.tongThoiGian = tongThoiGian;
-		this.thoiGianSuDung = thoiGianSuDung;
+		this.username = username;
+		this.password = password;
+		this.payment = payment;
+		this.totalTime = totalTime;
+		this.playTime = playTime;
 	}
-	public String getId() {
+	public int getId() {
 		return id;
 	}
-	public void setId(String id) {
+	public void setId(int id) {
 		this.id = id;
 	}
-	public String getTenDangNhap() {
-		return tenDangNhap;
+	public String getUsername() {
+		return username;
 	}
-	public void setTenDangNhap(String tenDangNhap) {
-		this.tenDangNhap = tenDangNhap;
+	public void setUsername(String username) {
+		this.username = username;
 	}
-	public String getMatKhau() {
-		return matKhau;
+	public String getPassword() {
+		return password;
 	}
-	public void setMatKhau(String matKhau) {
-		this.matKhau = matKhau;
+	public void setPassword(String password) {
+		this.password = password;
 	}
-	public String getThanhToan() {
-		return thanhToan;
+	public String getPayment() {
+		return payment;
 	}
-	public void setThanhToan(String thanhToan) {
-		this.thanhToan = thanhToan;
+	public void setPayment(String payment) {
+		this.payment = payment;
 	}
-	public String getTongThoiGian() {
-		return tongThoiGian;
+	public Timestamp getTotalTime() {
+		return totalTime;
 	}
-	public void setTongThoiGian(String tongThoiGian) {
-		this.tongThoiGian = tongThoiGian;
+	public void setTotalTime(Timestamp totalTime) {
+		this.totalTime = totalTime;
 	}
-	public String getThoiGianSuDung() {
-		return thoiGianSuDung;
+	public Timestamp getPlayTime() {
+		return playTime;
 	}
-	public void setThoiGianSuDung(String thoiGianSuDung) {
-		this.thoiGianSuDung = thoiGianSuDung;
+	public void setPlayTime(Timestamp playTime) {
+		this.playTime = playTime;
 	}
 }

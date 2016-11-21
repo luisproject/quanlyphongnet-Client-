@@ -17,7 +17,10 @@ import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 import javax.swing.WindowConstants;
 
+import model.bean.Member;
+import model.bo.MemberBO;
 import utils.MessageBundle;
+import utils.ValidateDbMember;
 
 @SuppressWarnings("all")
 public class FrLogin extends JFrame{
@@ -43,8 +46,10 @@ public class FrLogin extends JFrame{
 	private JFrame demo;
 	private int lastX,lastY;
 	private FrInitial frInitial;
+	private int idm;
+	private MemberBO memberBO;
 	
-	public FrLogin(FrInitial frInitial){
+	public FrLogin(FrInitial frInitial,int idm){
 		initComponents();
         this.setLocationRelativeTo(this);
         this.setResizable(false);
@@ -52,6 +57,8 @@ public class FrLogin extends JFrame{
         tfUser.requestFocus();
         demo = this;
         this.frInitial = frInitial;
+        this.idm = idm;
+        memberBO = new MemberBO();
         this.addMouseListener(new MouseListener() {
             @Override
             public void mouseClicked(MouseEvent e) {
@@ -294,57 +301,60 @@ public class FrLogin extends JFrame{
 		// TODO Auto-generated method stub
 		String tenDangNhap = tfUser.getText();
         if(tenDangNhap.isEmpty()){
-        	JOptionPane.showConfirmDialog(new FrLogin(frInitial), "<html><p style=\"color:red; font-weight:bold;\">Tên đăng nhập không được bỏ trống!</p></html>","Thông báo",JOptionPane.WARNING_MESSAGE);
+        	JOptionPane.showConfirmDialog(new FrLogin(frInitial,idm), "<html><p style=\"color:red; font-weight:bold;\">Tên đăng nhập không được bỏ trống!</p></html>","Thông báo",JOptionPane.WARNING_MESSAGE);
         	return;
         }else{	
         	if(!MessageBundle.isUsername(tenDangNhap)){
             	if(tenDangNhap.length() < 3 || tenDangNhap.length() > 13){
             		if(tenDangNhap.length() < 3){
-            			JOptionPane.showConfirmDialog(new FrLogin(frInitial), "<html><p style=\"color:red; font-weight:bold;\">Tên đăng nhập quá ngắn(>= 6)!</p></html>","Thông báo",JOptionPane.WARNING_MESSAGE);
+            			JOptionPane.showConfirmDialog(new FrLogin(frInitial,idm), "<html><p style=\"color:red; font-weight:bold;\">Tên đăng nhập quá ngắn(>= 6)!</p></html>","Thông báo",JOptionPane.WARNING_MESSAGE);
             		}
             		if(tenDangNhap.length() > 13){
-            			JOptionPane.showConfirmDialog(new FrLogin(frInitial), "<html><p style=\"color:red; font-weight:bold;\">Tên đăng nhập quá dài(<= 20)!</p></html>","Thông báo",JOptionPane.WARNING_MESSAGE);
+            			JOptionPane.showConfirmDialog(new FrLogin(frInitial,idm), "<html><p style=\"color:red; font-weight:bold;\">Tên đăng nhập quá dài(<= 20)!</p></html>","Thông báo",JOptionPane.WARNING_MESSAGE);
             		}
             		return;
             	}
-            	JOptionPane.showConfirmDialog(new FrLogin(frInitial), "<html><p style=\"color:red; font-weight:bold;\">Không chứa ký tự đặc biệt!</p></html>","Thông báo",JOptionPane.WARNING_MESSAGE);
+            	JOptionPane.showConfirmDialog(new FrLogin(frInitial,idm), "<html><p style=\"color:red; font-weight:bold;\">Không chứa ký tự đặc biệt!</p></html>","Thông báo",JOptionPane.WARNING_MESSAGE);
             	return;
             }
         }
         
         String matKhau = String.valueOf(tfPass.getPassword());
         if(matKhau.isEmpty()){
-        	JOptionPane.showConfirmDialog(new FrLogin(frInitial), "<html><p style=\"color:red; font-weight:bold;\">Mật khẩu không được bỏ trống!</p></html>","Thông báo",JOptionPane.WARNING_MESSAGE);
+        	JOptionPane.showConfirmDialog(new FrLogin(frInitial,idm), "<html><p style=\"color:red; font-weight:bold;\">Mật khẩu không được bỏ trống!</p></html>","Thông báo",JOptionPane.WARNING_MESSAGE);
         	return;
         }else{	
         	if(!MessageBundle.isUsername(tenDangNhap)){
             	if(tenDangNhap.length() < 3 || tenDangNhap.length() > 13){
             		if(tenDangNhap.length() < 3){
-            			JOptionPane.showConfirmDialog(new FrLogin(frInitial), "<html><p style=\"color:red; font-weight:bold;\">Mật khẩu quá ngắn (>= 6)!</p></html>","Thông báo",JOptionPane.WARNING_MESSAGE);
+            			JOptionPane.showConfirmDialog(new FrLogin(frInitial,idm), "<html><p style=\"color:red; font-weight:bold;\">Mật khẩu quá ngắn (>= 6)!</p></html>","Thông báo",JOptionPane.WARNING_MESSAGE);
             		}
             		if(tenDangNhap.length() > 13){
-            			JOptionPane.showConfirmDialog(new FrLogin(frInitial), "<html><p style=\"color:red; font-weight:bold;\">Mật khẩu quá dài (<= 20)!</p></html>","Thông báo",JOptionPane.WARNING_MESSAGE);
+            			JOptionPane.showConfirmDialog(new FrLogin(frInitial,idm), "<html><p style=\"color:red; font-weight:bold;\">Mật khẩu quá dài (<= 20)!</p></html>","Thông báo",JOptionPane.WARNING_MESSAGE);
             		}
             		return;
             	}
             }
         }
+        
         frInitial.setVisible(false);
-        // openFrMessage();
+        if(new ValidateDbMember().isLogin(tenDangNhap,matKhau)){
+        	openFrMessage(memberBO.getItemByUser(tenDangNhap));
+        }
 	}
 
-//	private void openFrMessage() {
-//		// TODO Auto-generated method stub
-//		FrMessage fr = new FrMessage();
-//		GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
-//        GraphicsDevice defaultScreen = ge.getDefaultScreenDevice();
-//        Rectangle rect = defaultScreen.getDefaultConfiguration().getBounds();
-//        int x = (int) rect.getMaxX() - fr.getWidth();
-//        int y = 0;
-//        fr.setLocation(x, y);
-//        fr.setVisible(true);
-//        this.dispose();
-//	}
+	private void openFrMessage(Member member) {
+		// TODO Auto-generated method stub
+		FrMessage2 fr = new FrMessage2(idm,member);
+		GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
+        GraphicsDevice defaultScreen = ge.getDefaultScreenDevice();
+        Rectangle rect = defaultScreen.getDefaultConfiguration().getBounds();
+        int x = (int) rect.getMaxX() - fr.getWidth();
+        int y = 0;
+        fr.setLocation(x, y);
+        fr.setVisible(true);
+        this.dispose();
+	}
 
 	protected void btnCancelActionPerformed(ActionEvent evt) {
 		// TODO Auto-generated method stub
