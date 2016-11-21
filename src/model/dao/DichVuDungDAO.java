@@ -49,13 +49,13 @@ public class DichVuDungDAO {
     
      public ArrayList<DichVuDung> getListItem(int idm) {
         ArrayList<DichVuDung> alItem = new ArrayList<>();
-        String sql = "SELECT * FROM "+table+" WHERE idm = ?";
+        String sql = "SELECT * FROM "+table+" WHERE idm=?";
         conn = lcdb.getConnectMySQL();
         try {
             pst = conn.prepareStatement(sql);
             pst.setInt(1, idm);
             rs = pst.executeQuery();
-            if (rs.next()) {
+            while (rs.next()) {
             	alItem.add(new DichVuDung(rs.getInt("id"), rs.getInt("idm"), rs.getString("tendichvu"), rs.getInt("dongia"), rs.getInt("soluong"),rs.getBoolean("trangthai")));
             }
         } catch (SQLException e) {

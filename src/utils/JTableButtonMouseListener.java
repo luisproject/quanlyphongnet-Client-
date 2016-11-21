@@ -50,8 +50,9 @@ public class JTableButtonMouseListener extends MouseAdapter{
 		    	  int result = objectDV.addItem(new DichVuDung(0, this.idm, dichVu.getTenDichVu(), dichVu.getDonGia(), soLuong,false));
 		    	  if(result > 0){
 		    		  JOptionPane.showConfirmDialog(new FrInitial(),"<html><p style=\"color:blue; font-weight:bold;\">Gửi yêu cầu của bạn thành công !</p></html>","Thông báo",JOptionPane.WARNING_MESSAGE);
+		    		  controller.loadTable();
+			    	  table2.revalidate();
 		    	  }
-		    	  controller.loadTable();
 		      }catch(NumberFormatException ex){
 		    	  JOptionPane.showConfirmDialog(new FrInitial(),"<html><p style=\"color:red; font-weight:bold;\">Vui lòng nhập số !</p></html>","Thông báo",JOptionPane.WARNING_MESSAGE);
 		      }
