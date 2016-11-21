@@ -9,6 +9,10 @@ public class DichVuBO {
 	public ArrayList<DichVu> getList() {
         return new DichVuDAO().getList();
     }
+	
+	public DichVu getItem(int iddv){
+		return new DichVuDAO().getItem(iddv);
+	}
 
     public int addItem(DichVu obj) {
         return new DichVuDAO().addItem(obj);

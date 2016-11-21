@@ -15,6 +15,7 @@ import javax.swing.JComponent;
 import javax.swing.JOptionPane;
 import javax.swing.JSpinner;
 import javax.swing.JTable;
+import javax.swing.JTextField;
 import javax.swing.event.TableModelListener;
 import javax.swing.table.AbstractTableModel;
 import javax.swing.table.TableCellRenderer;
@@ -23,7 +24,6 @@ import model.bean.DichVu;
 import model.bo.DichVuBO;
 import utils.JTableButtonMouseListener;
 import utils.JTableButtonRenderer;
-import utils.JTableSpinnerRenderer;
 import utils.SpinnerEditor;
 
 @SuppressWarnings("all")
@@ -35,8 +35,7 @@ public class ControllerDichVu extends AbstractTableModel{
         "<html><center><p style='color:#00434a;font-weight:bold;'>Tên Dịch Vụ</p></center></html>",
         "<html><center><p style='color:#00434a;font-weight:bold;'>Đơn Giá</p></center></html>",
         "<html><center><p style='color:#00434a;font-weight:bold;'>Đơn Vị</p></center></html>",
-        "<html><center><p style='color:#00434a;font-weight:bold;'>Số Lượng</p></center></html>",
-        "<html><center><p style='color:#00434a;font-weight:bold;'>Lựa Chọn</p></center></html>",
+        "<html><center><p style='color:#00434a;font-weight:bold;'>Lựa Chọn</p></center></html>"
     };
     private ArrayList<DichVu> alItem = new ArrayList<DichVu>();
     
@@ -81,11 +80,7 @@ public class ControllerDichVu extends AbstractTableModel{
             case 3:
                 object = Item.getDonVi();
                 break;
-            case 4:
-                JSpinner spinner = new JSpinner();
-                spinner.setPreferredSize(new Dimension(29, 24));
-                return spinner;
-            case 5: 
+            case 4: 
             	JButton button = new JButton();
             	button.setIcon(new ImageIcon(getClass().getResource("/images/tick.png"))); 
 	            return button;
@@ -100,7 +95,7 @@ public class ControllerDichVu extends AbstractTableModel{
         }else if(columnIndex == 2){
             return Integer.class;
         }else if(columnIndex == 4){
-        	return JSpinner.class;
+        	return JTextField.class;
         }else if(columnIndex == 5){
         	return JButton.class;
         }
@@ -110,11 +105,10 @@ public class ControllerDichVu extends AbstractTableModel{
 	public void loadTable(){
         
         this.table.setModel(this);
-        this.table.setAutoCreateRowSorter(true);
+        this.table.setAutoCreateRowSorter(false);
         table.setFillsViewportHeight(true);     
 
         TableCellRenderer buttonRenderer = new JTableButtonRenderer();
-        TableCellRenderer spinnerRenderer = new JTableSpinnerRenderer();
         
         this.table.addMouseListener(new JTableButtonMouseListener(this.table));
         
@@ -128,10 +122,7 @@ public class ControllerDichVu extends AbstractTableModel{
         table.getColumnModel().getColumn(2).setPreferredWidth(100);
         table.getColumnModel().getColumn(3).setPreferredWidth(100);
         
-        table.getColumnModel().getColumn(4).setPreferredWidth(100);
-        table.getColumnModel().getColumn(4).setCellRenderer(spinnerRenderer);
-        
-        table.getColumnModel().getColumn(5).setPreferredWidth(30);
-        table.getColumnModel().getColumn(5).setCellRenderer(buttonRenderer);
+        table.getColumnModel().getColumn(4).setPreferredWidth(30);
+        table.getColumnModel().getColumn(4).setCellRenderer(buttonRenderer);
     }
 }

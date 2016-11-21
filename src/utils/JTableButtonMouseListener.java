@@ -2,10 +2,16 @@ package utils;
 
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
+import javax.swing.JSpinner;
 import javax.swing.JTable;
+import javax.swing.JTextField;
+
+import model.bean.DichVu;
+import model.bo.DichVuBO;
 
 @SuppressWarnings("all")
 public class JTableButtonMouseListener extends MouseAdapter{
@@ -23,9 +29,10 @@ public class JTableButtonMouseListener extends MouseAdapter{
 	
 		if (row < table.getRowCount() && row >= 0 && column < table.getColumnCount() && column >= 0) {
 		 Object value = table.getValueAt(row, column);
-		 JOptionPane.showConfirmDialog(null, value);
 		   if (value instanceof JButton) {
 		     ((JButton)value).doClick();
+		      DichVu dichVu = new DichVuBO().getItem(Integer.parseInt(table.getValueAt(row, 0).toString()));
+		      String input = JOptionPane.showInputDialog("Số lượng: ");
 		   }
 		}
 	}
