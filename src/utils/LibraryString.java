@@ -101,4 +101,8 @@ public class LibraryString {
     	}
     	return result;    	
     }
+    
+    public static String dateToTime(Date temp){
+    	return temp.toString().substring(11, 19);
+    }
 }

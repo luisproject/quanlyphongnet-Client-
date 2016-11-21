@@ -5,6 +5,7 @@ import java.awt.Dimension;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.MouseEvent;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -80,15 +81,61 @@ public class FrMessage2 extends JFrame{
 		switch(Integer.parseInt(member.getPayment())){
 			case 5000:
 				jSpinner1.setValue(LibraryString.convertToTime(7200));
+			try {
+				jSpinner2.setValue(new SimpleDateFormat("HH:mm:ss").parse("00:00:00"));
+			} catch (ParseException e) {
+			}
+				Thread clock = new Thread(){
+					@Override
+					public void run(){
+						int s = 0,m = 0,h = 0;
+						while(true){
+							try {
+								sleep(1000);
+							} catch (InterruptedException e) {
+							}
+							s++;
+							if(s == 60){
+								m += 1;
+								s = 0;
+								if(m == 60){
+									h += 1;
+									m = 0;
+								}
+							}
+							// Convert format HH:mm:ss
+							String result = "";
+							if(h < 10){
+					    		result += "0"+h;
+					    	}else{
+					    		result += h;
+					    	}
+					    	if(m < 10){
+					    		result += ":0"+m;
+					    	}else{
+					    		result += ":"+m;
+					    	}
+					    	if(s < 10){
+					    		result += ":0"+s;
+					    	}else{
+					    		result += ":"+s;
+					    	}
+					    	try {
+								jSpinner2.setValue(new SimpleDateFormat("HH:mm:ss").parse(result));
+							} catch (ParseException e) {
+								System.out.print(e.getMessage());
+							}
+						}
+					}
+				};
+				clock.start();
 				break;
 			case 10000:
 				jSpinner1.setValue(LibraryString.convertToTime(14400));
 				break;
 		}
 		
-//		Date thoiGianStart = new Date(member.getTotalTime().getTime());
-//		Date thoiGianPlay = LibraryString.convertToTime(Math.abs(new Date().getTime() - thoiGianStart.getTime())/1000);
-//		jSpinner2.setValue(thoiGianPlay);
+		
 //		jSpinner3.setValue(LibraryString.convertToTime(86399 - thoiGianPlay.getTime()/1000));
 //		
 //		String money = LibraryString.operMoney(thoiGianPlay, new MayBO().getItem(idm).getDonGia())+"";
