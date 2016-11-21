@@ -328,7 +328,7 @@ public class FrMessage extends JFrame{
 
 	protected void jButton3ActionPerformed(ActionEvent evt) {
 		// TODO Auto-generated method stub
-		FrService fr = new FrService();
+		FrService fr = new FrService(idm);
 		fr.setVisible(true);
 		
 		Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();

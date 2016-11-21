@@ -23,9 +23,9 @@ public class FrService extends JFrame{
 	private JTable tbMain2;
 	private ControllerDichVu controller;
 	
-	public FrService(){
+	public FrService(int idm){
 		initComponents();
-		controller = new ControllerDichVu(tbMain1);
+		controller = new ControllerDichVu(tbMain1,idm,tbMain2);
 		controller.loadTable();
 		this.addWindowListener(new java.awt.event.WindowAdapter() {
 		    @Override
@@ -50,7 +50,11 @@ public class FrService extends JFrame{
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         Content.setBackground(new java.awt.Color(242, 242, 242));
-        Content.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Danh sách dịch vụ ", javax.swing.border.TitledBorder.LEFT, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Tahoma", 1, 12), new java.awt.Color(0, 153, 255))); // NOI18N
+        Content.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Danh sách dịch vụ ", javax.swing.border.TitledBorder.LEFT, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Tahoma", 1, 12), new java.awt.Color(0, 153, 204))); // NOI18N
+
+        Available.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Hệ thống dịch vụ", javax.swing.border.TitledBorder.LEFT, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Tahoma", 1, 12), new java.awt.Color(0, 153, 255))); // NOI18N
+        Available.setPreferredSize(new java.awt.Dimension(462, 250));
+        Available.setLayout(new java.awt.BorderLayout());
 
         jScrollPane1.setBorder(null);
 
@@ -67,16 +71,10 @@ public class FrService extends JFrame{
         ));
         jScrollPane1.setViewportView(tbMain1);
 
-        javax.swing.GroupLayout AvailableLayout = new javax.swing.GroupLayout(Available);
-        Available.setLayout(AvailableLayout);
-        AvailableLayout.setHorizontalGroup(
-            AvailableLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 788, javax.swing.GroupLayout.PREFERRED_SIZE)
-        );
-        AvailableLayout.setVerticalGroup(
-            AvailableLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-        );
+        Available.add(jScrollPane1, java.awt.BorderLayout.CENTER);
+
+        Using.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Dịch vụ đã gọi", javax.swing.border.TitledBorder.LEFT, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Tahoma", 1, 12), new java.awt.Color(0, 153, 255))); // NOI18N
+        Using.setLayout(new java.awt.BorderLayout());
 
         jScrollPane2.setBorder(null);
 
@@ -93,30 +91,21 @@ public class FrService extends JFrame{
         ));
         jScrollPane2.setViewportView(tbMain2);
 
-        javax.swing.GroupLayout UsingLayout = new javax.swing.GroupLayout(Using);
-        Using.setLayout(UsingLayout);
-        UsingLayout.setHorizontalGroup(
-            UsingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 788, javax.swing.GroupLayout.PREFERRED_SIZE)
-        );
-        UsingLayout.setVerticalGroup(
-            UsingLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE)
-        );
+        Using.add(jScrollPane2, java.awt.BorderLayout.CENTER);
 
         javax.swing.GroupLayout ContentLayout = new javax.swing.GroupLayout(Content);
         Content.setLayout(ContentLayout);
         ContentLayout.setHorizontalGroup(
             ContentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(Available, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-            .addComponent(Using, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(Available, javax.swing.GroupLayout.PREFERRED_SIZE, 779, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(Using, javax.swing.GroupLayout.PREFERRED_SIZE, 779, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         ContentLayout.setVerticalGroup(
             ContentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(ContentLayout.createSequentialGroup()
                 .addComponent(Available, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0)
-                .addComponent(Using, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(Using, javax.swing.GroupLayout.PREFERRED_SIZE, 313, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         getContentPane().add(Content, java.awt.BorderLayout.CENTER);

@@ -10,16 +10,29 @@ import javax.swing.JSpinner;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 
+import controller.ControllerDichVuDung;
 import model.bean.DichVu;
+import model.bean.DichVuDung;
 import model.bo.DichVuBO;
+import model.bo.DichVuDungBO;
+import view.FrInitial;
 
 @SuppressWarnings("all")
 public class JTableButtonMouseListener extends MouseAdapter{
 	
 	private final JTable table;
+	private final JTable table2;
+	private int idm;
+	private DichVuDungBO objectDV;
+	private ControllerDichVuDung controller;
 	
-	public JTableButtonMouseListener(JTable table) {
+	public JTableButtonMouseListener(JTable table,int idm,JTable table2) {
         this.table = table;
+        this.table2 = table2;
+        this.idm = idm;
+        objectDV = new DichVuDungBO();
+        controller = new ControllerDichVuDung(table2, idm);
+        controller.loadTable();
     }
 	
 	@Override
@@ -32,7 +45,16 @@ public class JTableButtonMouseListener extends MouseAdapter{
 		   if (value instanceof JButton) {
 		     ((JButton)value).doClick();
 		      DichVu dichVu = new DichVuBO().getItem(Integer.parseInt(table.getValueAt(row, 0).toString()));
-		      String input = JOptionPane.showInputDialog("Số lượng: ");
+		      try{
+		    	  int soLuong = Integer.parseInt(JOptionPane.showInputDialog("Số lượng: "));
+		    	  int result = objectDV.addItem(new DichVuDung(0, this.idm, dichVu.getTenDichVu(), dichVu.getDonGia(), soLuong,false));
+		    	  if(result > 0){
+		    		  JOptionPane.showConfirmDialog(new FrInitial(),"<html><p style=\"color:blue; font-weight:bold;\">Gửi yêu cầu của bạn thành công !</p></html>","Thông báo",JOptionPane.WARNING_MESSAGE);
+		    	  }
+		    	  controller.loadTable();
+		      }catch(NumberFormatException ex){
+		    	  JOptionPane.showConfirmDialog(new FrInitial(),"<html><p style=\"color:red; font-weight:bold;\">Vui lòng nhập số !</p></html>","Thông báo",JOptionPane.WARNING_MESSAGE);
+		      }
 		   }
 		}
 	}

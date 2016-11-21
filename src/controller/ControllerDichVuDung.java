@@ -20,33 +20,28 @@ import javax.swing.event.TableModelListener;
 import javax.swing.table.AbstractTableModel;
 import javax.swing.table.TableCellRenderer;
 
-import model.bean.DichVu;
-import model.bo.DichVuBO;
+import model.bean.DichVuDung;
+import model.bo.DichVuDungBO;
 import utils.JTableButtonMouseListener;
 import utils.JTableButtonRenderer;
 import utils.SpinnerEditor;
 
 @SuppressWarnings("all")
-public class ControllerDichVu extends AbstractTableModel{
+public class ControllerDichVuDung extends AbstractTableModel{
 	private JTable table;
-	private JTable table2;
-    private DichVuBO model;
+    private DichVuDungBO model;
     private String[] cols = {
-        "<html><center><p style='color:#00434a;font-weight:bold;'>STT</p></center></html>",
         "<html><center><p style='color:#00434a;font-weight:bold;'>Tên Dịch Vụ</p></center></html>",
         "<html><center><p style='color:#00434a;font-weight:bold;'>Đơn Giá</p></center></html>",
-        "<html><center><p style='color:#00434a;font-weight:bold;'>Đơn Vị</p></center></html>",
-        "<html><center><p style='color:#00434a;font-weight:bold;'>Lựa Chọn</p></center></html>"
+        "<html><center><p style='color:#00434a;font-weight:bold;'>Số Lượng</p></center></html>",
+        "<html><center><p style='color:#00434a;font-weight:bold;'>Trạng Thái</p></center></html>"
     };
-    private ArrayList<DichVu> alItem = new ArrayList<DichVu>();
-    private int idm;
+    private ArrayList<DichVuDung> alItem = new ArrayList<DichVuDung>();
     
-    public ControllerDichVu(JTable table,int idm,JTable table2) {
+    public ControllerDichVuDung(JTable table,int idm) {
     	this.table = table;
-    	this.table2 = table2;
-        model = new DichVuBO();
-        alItem = model.getList();       
-        this.idm = idm;
+        model = new DichVuDungBO();
+        alItem = model.getListItem(idm);       
 	}
     
 	@Override
@@ -69,25 +64,25 @@ public class ControllerDichVu extends AbstractTableModel{
 	@Override
 	public Object getValueAt(int rowIndex, int columnIndex) {
 		// TODO Auto-generated method stub
-		DichVu Item = alItem.get(rowIndex);
+		DichVuDung Item = alItem.get(rowIndex);
         Object object = null;
         switch(columnIndex){
             case 0:
-                object = Item.getId();
+                object = Item.getTendichvu();
                 break;
             case 1:
-                object = Item.getTenDichVu();
+                object = Item.getDongia();
                 break;
             case 2:
-                object = Item.getDonGia();
+                object = Item.getSoluong();
                 break;
             case 3:
-                object = Item.getDonVi();
+            	if(Item.isTrangThai()){
+            		object = "Đã xử lý";
+            	}else{
+            		object = "Đang xử lý";
+            	}
                 break;
-            case 4: 
-            	JButton button = new JButton();
-            	button.setIcon(new ImageIcon(getClass().getResource("/images/tick.png"))); 
-	            return button;
         }
         return object;
 	}
@@ -95,13 +90,11 @@ public class ControllerDichVu extends AbstractTableModel{
 	public Class<?> getColumnClass(int columnIndex) {
 		// TODO Auto-generated method stub
 		if(columnIndex == 0){
+            return String.class;
+        }else if(columnIndex == 1){
             return Integer.class;
         }else if(columnIndex == 2){
-            return Integer.class;
-        }else if(columnIndex == 4){
-        	return JTextField.class;
-        }else if(columnIndex == 5){
-        	return JButton.class;
+        	return Integer.class;
         }
 		
 		return super.getColumnClass(columnIndex);
@@ -111,9 +104,6 @@ public class ControllerDichVu extends AbstractTableModel{
         this.table.setModel(this);
         this.table.setAutoCreateRowSorter(false);
         table.setFillsViewportHeight(true);     
-
-        TableCellRenderer buttonRenderer = new JTableButtonRenderer();     
-        this.table.addMouseListener(new JTableButtonMouseListener(this.table,this.idm,this.table2));
         
         table.getTableHeader().setPreferredSize(new Dimension(0, 30));
         table.getTableHeader().setFont(new Font("Tahoma",Font.BOLD, 12));
@@ -124,8 +114,5 @@ public class ControllerDichVu extends AbstractTableModel{
         table.getColumnModel().getColumn(1).setPreferredWidth(100);
         table.getColumnModel().getColumn(2).setPreferredWidth(100);
         table.getColumnModel().getColumn(3).setPreferredWidth(100);
-        
-        table.getColumnModel().getColumn(4).setPreferredWidth(30);
-        table.getColumnModel().getColumn(4).setCellRenderer(buttonRenderer);
     }
 }
