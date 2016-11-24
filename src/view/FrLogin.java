@@ -339,6 +339,7 @@ public class FrLogin extends JFrame{
         
         frInitial.setVisible(false);
         if(new ValidateDbMember().isLogin(tenDangNhap,matKhau)){
+        	this.dispose();
         	openFrMessage(memberBO.getItemByUser(tenDangNhap));
         }
 	}
@@ -352,8 +353,7 @@ public class FrLogin extends JFrame{
         int x = (int) rect.getMaxX() - fr.getWidth();
         int y = 0;
         fr.setLocation(x, y);
-        fr.setVisible(true);
-        this.dispose();
+        fr.setVisible(true);        
 	}
 
 	protected void btnCancelActionPerformed(ActionEvent evt) {

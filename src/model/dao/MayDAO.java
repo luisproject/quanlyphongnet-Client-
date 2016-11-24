@@ -187,4 +187,24 @@ public class MayDAO {
         }
         return c;
 	}
+	public int editItemVer(May c) {
+		int result = 0;
+        conn = lcdb.getConnectMySQL();
+        String sql = "UPDATE "+table+" SET trangthai = ? WHERE idm = ? LIMIT 1";
+        try {
+            pst = conn.prepareStatement(sql);
+            pst.setBoolean(1, c.getTrangThai());
+            pst.setInt(2, c.getIdm());
+            pst.executeUpdate();
+            result = c.getIdm();
+        } catch (SQLException e) {
+        } finally {
+            try {
+                pst.close();
+                conn.close();
+            } catch (SQLException e) {
+            }
+        }
+        return result;
+	}
 }

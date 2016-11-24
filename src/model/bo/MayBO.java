@@ -33,4 +33,9 @@ public class MayBO {
     public May getItemName(String tenMay) {
 		return new MayDAO().getItemName(tenMay);
 	}
+
+	public int editItemVer(May may) {
+		// TODO Auto-generated method stub
+		return new MayDAO().editItemVer(may);
+	}
 }

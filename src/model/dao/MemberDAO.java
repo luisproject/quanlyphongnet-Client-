@@ -34,7 +34,7 @@ public class MemberDAO {
             st = conn.createStatement();
             rs = st.executeQuery(sql);
             while (rs.next()) {
-                alItem.add(new Member(rs.getInt("id"),rs.getString("username"),rs.getString("password"),rs.getString("payment"),rs.getTimestamp("totaltime"),rs.getTimestamp("playtime")));
+                alItem.add(new Member(rs.getInt("id"),rs.getString("username"),rs.getString("password"),rs.getString("payment")));
             }
         } catch (SQLException ex) {
             Logger.getLogger(MemberDAO.class.getName()).log(Level.SEVERE, null, ex);
@@ -59,7 +59,7 @@ public class MemberDAO {
             pst.setInt(1, id);
             rs = pst.executeQuery();
             if (rs.next()) {
-                c = new Member(rs.getInt("id"),rs.getString("username"),rs.getString("password"),rs.getString("payment"),rs.getTimestamp("totaltime"),rs.getTimestamp("playtime"));
+                c = new Member(rs.getInt("id"),rs.getString("username"),rs.getString("password"),rs.getString("payment"));
             }
         } catch (SQLException e) {
         } finally {
@@ -76,14 +76,12 @@ public class MemberDAO {
         int result = 0;
         conn = lcdb.getConnectMySQL();
 
-        String sql = "INSERT INTO "+table+"(username,password,payment,totaltime,playtime) VALUES (?,?,?,?,?)";
+        String sql = "INSERT INTO "+table+"(username,password,payment,totaltime,playtime) VALUES (?,?,?)";
         try {
             pst = conn.prepareStatement(sql,PreparedStatement.RETURN_GENERATED_KEYS);
             pst.setString(1, item.getUsername());
             pst.setString(2, item.getPassword());
             pst.setString(3, item.getPayment());
-            pst.setTimestamp(4, item.getTotalTime());
-            pst.setTimestamp(5, item.getPlayTime());
             pst.executeUpdate();
             rs = pst.getGeneratedKeys();
             if(rs.next()){
@@ -129,7 +127,7 @@ public class MemberDAO {
             pst.setString(1, tenDangNhap);
             rs = pst.executeQuery();
             if (rs.next()) {
-                c = new Member(rs.getInt("id"),rs.getString("username"),rs.getString("password"),rs.getString("payment"),rs.getTimestamp("totaltime"),rs.getTimestamp("playtime"));
+                c = new Member(rs.getInt("id"),rs.getString("username"),rs.getString("password"),rs.getString("payment"));
             }
         } catch (SQLException e) {
         } finally {

@@ -23,6 +23,7 @@ import javax.swing.JTextField;
 import javax.swing.WindowConstants;
 import javax.swing.border.TitledBorder;
 
+import model.bean.May;
 import model.bean.Member;
 import model.bo.MayBO;
 import model.bo.PhienNguoiDungBO;
@@ -73,18 +74,26 @@ public class FrMessage2 extends JFrame{
 		this.idm = idm;
 		this.member = member;
 		initTime();
-		Center.setBorder(BorderFactory.createTitledBorder(BorderFactory.createMatteBorder(0, 0, 0, 0, new Color(242, 242, 242)), "Thông tin tính tiền "+mayBO.getItem(idm).getTenMay(),TitledBorder.LEFT, TitledBorder.TOP, new java.awt.Font("Tahoma", 1, 12), new Color(51, 153, 255))); // NOI18N
+		updateComponents();
+	}
+
+	private void updateComponents() {
+		// TODO Auto-generated method stub
+		Center.setBorder(BorderFactory.createTitledBorder(BorderFactory.createMatteBorder(0, 0, 0, 0, new Color(242, 242, 242)), "Thông tin tính tiền "+mayBO.getItem(idm).getTenMay(),TitledBorder.LEFT, TitledBorder.TOP, new java.awt.Font("Tahoma", 1, 12), new Color(51, 153, 255)));
+		mayBO.editItemVer(new May(idm,true));
+		jLabel8.setText(member.getUsername());
 	}
 
 	private void initTime() {
 		// TODO Auto-generated method stub
 		switch(Integer.parseInt(member.getPayment())){
 			case 5000:
-				jSpinner1.setValue(LibraryString.convertToTime(7200));
-			try {
-				jSpinner2.setValue(new SimpleDateFormat("HH:mm:ss").parse("00:00:00"));
-			} catch (ParseException e) {
-			}
+				Date totalTime = LibraryString.convertToTime(7200);
+				jSpinner1.setValue(totalTime);
+				try {
+					jSpinner2.setValue(new SimpleDateFormat("HH:mm:ss").parse("00:00:00"));
+				} catch (ParseException e) {
+				}
 				Thread clock = new Thread(){
 					@Override
 					public void run(){
@@ -93,6 +102,7 @@ public class FrMessage2 extends JFrame{
 							try {
 								sleep(1000);
 							} catch (InterruptedException e) {
+								System.out.println(e.getMessage());
 							}
 							s++;
 							if(s == 60){
@@ -122,6 +132,7 @@ public class FrMessage2 extends JFrame{
 					    	}
 					    	try {
 								jSpinner2.setValue(new SimpleDateFormat("HH:mm:ss").parse(result));
+								jSpinner3.setValue(LibraryString.convertToTime(Math.abs(totalTime.getTime() - new SimpleDateFormat("HH:mm:ss").parse(result).getTime())/1000));
 							} catch (ParseException e) {
 								System.out.print(e.getMessage());
 							}
@@ -131,20 +142,60 @@ public class FrMessage2 extends JFrame{
 				clock.start();
 				break;
 			case 10000:
-				jSpinner1.setValue(LibraryString.convertToTime(14400));
+				Date totalTime1 = LibraryString.convertToTime(14400);
+				jSpinner1.setValue(totalTime1);
+				try {
+					jSpinner2.setValue(new SimpleDateFormat("HH:mm:ss").parse("00:00:00"));
+				} catch (ParseException e) {
+				}
+				Thread clock1 = new Thread(){
+					@Override
+					public void run(){
+						int s = 0,m = 0,h = 0;
+						while(true){
+							try {
+								sleep(1000);
+							} catch (InterruptedException e) {
+								System.out.println(e.getMessage());
+							}
+							s++;
+							if(s == 60){
+								m += 1;
+								s = 0;
+								if(m == 60){
+									h += 1;
+									m = 0;
+								}
+							}
+							// Convert format HH:mm:ss
+							String result = "";
+							if(h < 10){
+					    		result += "0"+h;
+					    	}else{
+					    		result += h;
+					    	}
+					    	if(m < 10){
+					    		result += ":0"+m;
+					    	}else{
+					    		result += ":"+m;
+					    	}
+					    	if(s < 10){
+					    		result += ":0"+s;
+					    	}else{
+					    		result += ":"+s;
+					    	}
+					    	try {
+								jSpinner2.setValue(new SimpleDateFormat("HH:mm:ss").parse(result));
+								jSpinner3.setValue(LibraryString.convertToTime(Math.abs(totalTime1.getTime() - new SimpleDateFormat("HH:mm:ss").parse(result).getTime())/1000));
+							} catch (ParseException e) {
+								System.out.print(e.getMessage());
+							}
+						}
+					}
+				};
+				clock1.start();
 				break;
 		}
-		
-		
-//		jSpinner3.setValue(LibraryString.convertToTime(86399 - thoiGianPlay.getTime()/1000));
-//		
-//		String money = LibraryString.operMoney(thoiGianPlay, new MayBO().getItem(idm).getDonGia())+"";
-//		if(Integer.parseInt(money) > 1000){
-//			jTextField1.setText(LibraryString.changeCurrencyVND(money)+" VND");
-//		}else{
-//			jTextField1.setText("1.000 VND");
-//		}
-		
 	}
 
 	private void initComponents() {

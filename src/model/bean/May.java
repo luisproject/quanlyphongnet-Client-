@@ -31,6 +31,12 @@ public class May {
 		this.donGia = donGia;
 		this.diaChiMac = diaChiMac;
 	}
+	
+	public May(int idm, Boolean trangThai) {
+		super();
+		this.idm = idm;
+		this.trangThai = trangThai;
+	}
 	public int getIdm() {
 		return idm;
 	}
