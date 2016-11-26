@@ -31,7 +31,7 @@ public class DichVuDungDAO {
             st = conn.createStatement();
             rs = st.executeQuery(sql);
             while (rs.next()) {
-                alItem.add(new DichVuDung(rs.getInt("id"), rs.getInt("idm"), rs.getString("tendichvu"), rs.getInt("dongia"), rs.getInt("soluong"),rs.getBoolean("trangthai")));
+                alItem.add(new DichVuDung(rs.getInt("id"), rs.getInt("idm"), rs.getString("tendichvu"), rs.getInt("dongia"), rs.getInt("soluong"),rs.getString("trangthai")));
             }
         } catch (SQLException ex) {
             Logger.getLogger(DichVuDungDAO.class.getName()).log(Level.SEVERE, null, ex);
@@ -56,7 +56,7 @@ public class DichVuDungDAO {
             pst.setInt(1, idm);
             rs = pst.executeQuery();
             while (rs.next()) {
-            	alItem.add(new DichVuDung(rs.getInt("id"), rs.getInt("idm"), rs.getString("tendichvu"), rs.getInt("dongia"), rs.getInt("soluong"),rs.getBoolean("trangthai")));
+            	alItem.add(new DichVuDung(rs.getInt("id"), rs.getInt("idm"), rs.getString("tendichvu"), rs.getInt("dongia"), rs.getInt("soluong"),rs.getString("trangthai")));
             }
         } catch (SQLException e) {
         } finally {
@@ -80,7 +80,7 @@ public class DichVuDungDAO {
             pst.setString(2, item.getTendichvu());
             pst.setInt(3, item.getDongia());
             pst.setInt(4, item.getSoluong());
-            pst.setBoolean(5, item.isTrangThai());
+            pst.setString(5, item.getTrangThai());
             pst.executeUpdate();
             rs = pst.getGeneratedKeys();
             if(rs.next()){

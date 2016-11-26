@@ -8,12 +8,11 @@ public class DichVuDung {
 	private String tendichvu;
 	private int dongia;
 	private int soluong;
-	private boolean trangThai;
-	
+	private String trangThai;
 	public DichVuDung() {
 		super();
 	}
-	public DichVuDung(int id, int idm, String tendichvu, int dongia, int soluong, boolean trangThai) {
+	public DichVuDung(int id, int idm, String tendichvu, int dongia, int soluong, String trangThai) {
 		super();
 		this.id = id;
 		this.idm = idm;
@@ -52,10 +51,10 @@ public class DichVuDung {
 	public void setSoluong(int soluong) {
 		this.soluong = soluong;
 	}
-	public boolean isTrangThai() {
+	public String getTrangThai() {
 		return trangThai;
 	}
-	public void setTrangThai(boolean trangThai) {
+	public void setTrangThai(String trangThai) {
 		this.trangThai = trangThai;
 	}
 }

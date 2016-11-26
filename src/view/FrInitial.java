@@ -49,7 +49,7 @@ public class FrInitial extends JFrame{
 			if(objMay.getTrangThai()){
 		        openFrMessage(objMay.getIdm());
 			}else{
-				JOptionPane.showConfirmDialog(new FrInitial(),"<html><p style=\"color:red; font-weight:bold;\">Yêu cầu máy chủ mở kết nối internet!</p></html>","Thông báo",JOptionPane.WARNING_MESSAGE);
+				JOptionPane.showConfirmDialog(new FrInitial(),"<html><p style=\"color:red; font-weight:bold;\">Vui lòng kết nối với máy chủ!</p></html>","Thông báo",JOptionPane.WARNING_MESSAGE);
 			}
 		}else{
 			JOptionPane.showConfirmDialog(new FrInitial(),"<html><p style=\"color:red; font-weight:bold;\">Bạn chưa cấu hình địa chỉ mac cho máy!</p></html>","Thông báo",JOptionPane.WARNING_MESSAGE);

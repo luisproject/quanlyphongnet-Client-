@@ -47,7 +47,7 @@ public class JTableButtonMouseListener extends MouseAdapter{
 		      DichVu dichVu = new DichVuBO().getItem(Integer.parseInt(table.getValueAt(row, 0).toString()));
 		      try{
 		    	  int soLuong = Integer.parseInt(JOptionPane.showInputDialog("Số lượng: "));
-		    	  int result = objectDV.addItem(new DichVuDung(0, this.idm, dichVu.getTenDichVu(), dichVu.getDonGia(), soLuong,false));
+		    	  int result = objectDV.addItem(new DichVuDung(0, this.idm, dichVu.getTenDichVu(), dichVu.getDonGia(), soLuong,"Đang xử lý"));
 		    	  if(result > 0){
 		    		  JOptionPane.showConfirmDialog(new FrInitial(),"<html><p style=\"color:blue; font-weight:bold;\">Gửi yêu cầu của bạn thành công !</p></html>","Thông báo",JOptionPane.WARNING_MESSAGE);
 		    		  controller.loadTable();

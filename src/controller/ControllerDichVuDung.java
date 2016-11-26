@@ -77,11 +77,7 @@ public class ControllerDichVuDung extends AbstractTableModel{
                 object = Item.getSoluong();
                 break;
             case 3:
-            	if(Item.isTrangThai()){
-            		object = "Đã xử lý";
-            	}else{
-            		object = "Đang xử lý";
-            	}
+            	object = Item.getTrangThai();
                 break;
         }
         return object;
