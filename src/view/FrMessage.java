@@ -103,6 +103,22 @@ public class FrMessage extends JFrame{
 			}
 		};
 		clock.start();
+		new Thread(){
+			public void run() {
+				while(true){
+					if(new MayBO().getItem(idm).getTrangThai()==false){
+						FrInitial frInitial = new FrInitial();
+						frInitial.setLocation(getLocation());
+						frInitial.setVisible(true);
+					}
+					try {
+						sleep(1000);
+					} catch (InterruptedException e) {
+						System.out.print(e.getMessage());
+					}
+				}
+			};
+		}.start();
 	}
 
 	private void initComponents() {
